@@ -79,6 +79,51 @@ namespace UnitTestProjectStos
 
             char c = stos.Peek;
         }
+
+        [TestMethod]
+        public void TrimExcess()
+        {
+            stos = new StosWTablicy<char>(10);
+
+            stos.Push('a');
+            stos.Push('b');
+            stos.Push('c');
+        }
+
+        [TestMethod]
+        public void indexerTest()
+        {
+            StosWTablicy<char> stos = new StosWTablicy<char>(10);
+
+            stos.Push('a');
+            stos.Push('b');
+            stos.Push('c');
+
+            Assert.AreEqual('a', stos[0]);
+            Assert.AreEqual('b', stos[1]);
+            Assert.AreEqual('c', stos[2]);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void indexerOutOfRangeTest()
+        {
+            StosWTablicy<char> stos = new StosWTablicy<char>(10);
+
+            stos.Push('a');
+            stos.Push('b');
+            stos.Push('c');
+            
+            try
+            {
+                char test = stos[4];
+            } catch(IndexOutOfRangeException exception)
+            {
+                Assert.AreEqual("Sczyt: 2 tab length: 4", exception.Message);
+
+                throw exception;
+            }
+        }
     }
 
 }
